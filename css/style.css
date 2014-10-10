@@ -12,6 +12,88 @@
   font-style: normal;
   font-weight: normal; }
 body {
-  font-family: 'Futura'; }
+  font-family: 'Futura';
+  font-size: 100%;
+  background: #222426;
+  color: rgba(255, 255, 255, 0.8);
+  min-width: 320px; }
+
+a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8); }
+
+h1 {
+  font-weight: normal;
+  font-size: 25px;
+  font-size: 1.5625rem; }
+
+.git {
+  float: right;
+  line-height: 35px; }
+  .git:after {
+    content: url(../img/git.png);
+    float: right;
+    margin: 0 0 0 20px; }
+
+.centre-wrap {
+  width: 100%;
+  max-width: 1310px;
+  margin: 0 auto;
+  padding: 0 15px; }
+
+header {
+  width: 100%;
+  float: left;
+  padding: 15px 0 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  margin: 0 0 30px 0; }
+  header h1 {
+    float: left; }
+
+.main {
+  float: left;
+  width: 100%;
+  clear: both; }
+
+.slider {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  height: 600px;
+  position: relative; }
+  .slider--nav {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    font-size: 20px;
+    font-size: 1.25rem;
+    overflow: hidden;
+    color: #222426;
+    z-index: 10; }
+    .slider--nav.next {
+      top: 0;
+      right: 0;
+      text-align: right;
+      padding: 2px 9px 0 0; }
+      .slider--nav.next:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-right: 50px solid rgba(255, 255, 255, 0.8);
+        border-bottom: 50px solid transparent;
+        z-index: -1; }
+    .slider--nav.prev {
+      bottom: 0;
+      left: 0;
+      text-align: left;
+      padding: 21px 0 0 9px; }
+      .slider--nav.prev:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-left: 50px solid rgba(255, 255, 255, 0.8);
+        border-top: 50px solid transparent;
+        z-index: -1; }
 
 /*# sourceMappingURL=style.css.map */

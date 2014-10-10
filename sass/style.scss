@@ -1,3 +1,6 @@
+$white: rgba(255, 255, 255, 0.8);
+$black: #222426;
+
 * {
 
 	-moz-box-sizing: border-box;
@@ -23,10 +26,149 @@
 
 }
 
+@mixin font-size($value) {
 
+	$rem : $value / 16;
+
+	font-size: $value+px;
+	font-size: $rem+rem;
+
+}
 
 body {
 
 	font-family: 'Futura';
+	font-size: 100%;
+	background: $black;
+	color: $white;
+
+	min-width: 320px;
+
+}
+
+a {
+
+	text-decoration: none;
+	color: $white;
+
+}
+
+h1 {
+
+	font-weight: normal;
+	@include font-size(25);
+
+}
+
+.git {
+
+	float: right;
+	line-height: 35px;
+
+	&:after {
+
+		content: url(../img/git.png);
+		float: right;
+		margin: 0 0 0 20px;
+
+	}
+
+}
+
+.centre-wrap {
+
+	width: 100%;
+	max-width: 1310px;
+	margin: 0 auto;
+	padding: 0 15px;
+
+}
+
+header {
+
+	width: 100%;
+	float: left;
+	padding: 15px 0 5px 0;
+	border-bottom: 1px solid $white;
+	margin: 0 0 30px 0;
+
+	h1 {
+
+		float: left;
+
+	}
+
+}
+
+.main {
+
+	float: left;
+	width: 100%;
+	clear: both;
+
+}
+
+.slider {
+
+	width: 100%;
+	border: 1px solid $white;
+	height: 600px;
+	position: relative;
+
+	&--nav {
+
+		position: absolute;
+		height: 50px;
+		width: 50px;
+		@include font-size(20);
+		overflow: hidden;
+		color: $black;
+		z-index: 10;
+
+		&.next {
+
+			top: 0;
+			right: 0;
+			text-align: right;
+			padding: 2px 9px 0 0;
+
+			&:before {
+
+				content: '';
+
+				position: absolute;
+				top: 0;
+				right: 0;
+				border-right: 50px solid $white;
+				border-bottom: 50px solid transparent;
+				z-index: -1;
+
+			}
+
+		}
+
+		&.prev {
+
+			bottom: 0;
+			left: 0;
+			text-align: left;
+			padding: 21px 0 0 9px;
+
+			&:before {
+
+				content: '';
+
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				border-left: 50px solid $white;
+				border-top: 50px solid transparent;
+				z-index: -1;
+
+			}
+
+		}
+
+	}
 
 }
