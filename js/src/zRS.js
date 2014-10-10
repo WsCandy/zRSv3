@@ -58,15 +58,29 @@
 
 	var zRS_core = function(self, settings) {
 
-		var ins = this,
-			ins.defaults = {};
+		var ins = this;
 		
-		var options = $.extend(ins.defaults, settings);
+		ins.defaults = {};
+		
+		var options = $.extend(ins.defaults, settings), objs = {}, elem = {};
 
-		var secret = {
+		var setUp = {
 
 			init: function() {
 
+				secret.defineModules();
+
+				for(var obj in objs) {
+
+					objs[obj].setUp();
+
+				}
+
+			},
+
+			defineModules: function() {
+
+				objs['inner'] = new innerSlider();
 
 			}
 
@@ -77,7 +91,25 @@
 
 		}
 
-		secret.init();
+		var innerSlider = function() {
+
+			this.setUp = function() {
+
+				elem['inner'] = self.find('.inner-slider');
+
+				elem['inner'].css({
+
+					'posiition' : 'relative',
+					'width' : '100%',
+					'overflow' : 'hidden'
+
+				});
+
+			}
+
+		}
+
+		setUp.init();
 
 	}
 
