@@ -58,7 +58,10 @@
 
 	var zRS_core = function(self, settings) {
 
-		var ins = this;
+		var ins = this,
+			ins.defaults = {};
+		
+		var options = $.extend(ins.defaults, settings);
 
 		var secret = {
 
