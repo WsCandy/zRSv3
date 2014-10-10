@@ -61,7 +61,8 @@
 		var ins = this;		
 			ins.defaults = {
 
-				'transition' : 'fade'
+				transition : 'fade',
+				speed : 1000
 
 			};
 		
@@ -75,6 +76,8 @@
 
 				for(var obj in objs) {
 
+					if(!objs[obj].setUp) continue;
+
 					objs[obj].setUp();
 
 				}
@@ -86,6 +89,7 @@
 				objs['inner'] = new innerSlider();
 				objs['slides'] = new slides();
 				objs['transition'] = new transition();
+				objs['controls'] = new controls();
 
 			}
 
@@ -96,6 +100,19 @@
 			slideCount : function() {
 
 				return objs['slides'].count();
+
+			},
+
+			pause : function() {
+
+				objs['controls'].pause();
+
+			},
+
+			play : function(direction) {
+
+				objs['controls'].pause();
+				objs['controls'].play(direction);
 
 			}
 
@@ -148,11 +165,11 @@
 
 			transition.setUp = function() {
 
-				objs['transition'][options.transition]();
+				objs['transition'][options.transition]('setUp');
 
 			}
 
-			transition.fade = function() {
+			transition.fade = function(action) {
 
 				var method = this;
 
@@ -195,7 +212,19 @@
 
 				}
 
-				method.setUp();
+				method.forward = function() {
+
+					console.log('forward');
+
+				}
+
+				method.back = function() {
+
+					console.log('backwards');
+
+				}
+
+				method[action]();
 
 			}
 
@@ -208,9 +237,27 @@
 
 				}
 
-				method.setUp();
+			}
+
+		}
+
+		var controls = function() {
+
+			var method = this;
+
+			method.play = function(direction) {
+
+				ins.timer = setInterval(objs['transition'][options.transition], options.speed, direction);
 
 			}
+
+			method.pause = function() {
+
+				clearInterval(ins.timer);
+
+			}
+
+			method.play('forward');
 
 		}
 
