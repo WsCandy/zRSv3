@@ -5,4 +5,13 @@
   padding: 0;
   margin: 0; }
 
+@font-face {
+  font-family: 'Futura';
+  src: url("font/futura-normal.eot");
+  src: url("font/futura-normal.eot?#iefix") format("embedded-opentype"), url("font/futura-normal.woff") format("woff"), url("font/futura-normal.ttf") format("truetype"), url("font/futura-normal.svg#134877ad4e2599cacaa9d99d8b93d298") format("svg");
+  font-style: normal;
+  font-weight: normal; }
+body {
+  font-family: 'Futura'; }
+
 /*# sourceMappingURL=style.css.map */
