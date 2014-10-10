@@ -58,9 +58,12 @@
 
 	var zRS_core = function(self, settings) {
 
-		var ins = this;
-		
-		ins.defaults = {};
+		var ins = this;		
+			ins.defaults = {
+
+				'transition' : 'fade'
+
+			};
 		
 		var options = $.extend(ins.defaults, settings), objs = {}, elem = {};
 
@@ -68,7 +71,7 @@
 
 			init: function() {
 
-				secret.defineModules();
+				setUp.defineModules();
 
 				for(var obj in objs) {
 
@@ -81,6 +84,8 @@
 			defineModules: function() {
 
 				objs['inner'] = new innerSlider();
+				objs['slides'] = new slides();
+				objs['transition'] = new transition();
 
 			}
 
@@ -88,12 +93,19 @@
 
 		ins.public = {
 
+			slideCount : function() {
+
+				return objs['slides'].count();
+
+			}
 
 		}
 
 		var innerSlider = function() {
 
-			this.setUp = function() {
+			var method = this;
+
+			method.setUp = function() {
 
 				elem['inner'] = self.find('.inner-slider');
 
@@ -104,6 +116,99 @@
 					'overflow' : 'hidden'
 
 				});
+
+			}
+
+		}
+
+		var slides = function() {
+
+			var method = this;
+
+			method.setUp = function() {
+
+				elem['slides'] = elem['inner'].children();
+				elem['slides'].addClass('zRS--slide');
+
+			}
+
+			method.count = function() {
+
+				elem['slides'] = self.find('.zRS--slide');
+
+				return elem['slides'].length;
+
+			}
+
+		}
+
+		var transition = function() {
+
+			var transition = this;
+
+			transition.setUp = function() {
+
+				objs['transition'][options.transition]();
+
+			}
+
+			transition.fade = function() {
+
+				var method = this;
+
+				method.setUp = function() {
+
+					elem['slides'].eq(0).show();
+
+					elem['slides'].css({
+
+						'top' : '0px',
+						'left' : '0px',
+						'float' : 'left',
+						'width' : '100%'
+
+					});
+
+					for(var i = 0; i < objs['slides'].count(); i++) {
+
+						if(i == 0) {
+
+							elem['slides'].eq(i).css({
+
+								'position' : 'relative',
+								'z-index' : '1'
+
+							});
+
+						} else {
+
+							elem['slides'].eq(i).css({
+
+								'position' : 'absolute',
+								'z-index' : '0'
+
+							}).hide();
+
+						}
+
+					}
+
+				}
+
+				method.setUp();
+
+			}
+
+			transition.slide = function() {
+
+				var method = this;
+
+				method.setUp = function() {
+
+
+				}
+
+				method.setUp();
 
 			}
 

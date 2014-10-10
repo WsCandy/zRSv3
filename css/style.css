@@ -58,6 +58,8 @@ header {
 .slider {
   width: 100%;
   position: relative; }
+  .slider img {
+    display: none; }
   .slider--nav {
     position: absolute;
     height: 50px;
