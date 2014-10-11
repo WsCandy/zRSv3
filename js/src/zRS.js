@@ -62,7 +62,9 @@
 			ins.defaults = {
 
 				transition : 'fade',
-				speed : 1000
+				direction : 'back',
+				speed : 1000,
+				delay: 3000,
 
 			};
 		
@@ -151,9 +153,15 @@
 
 			method.count = function() {
 
-				elem['slides'] = self.find('.zRS--slide');
+				objs['slides'].reIndex();
 
 				return elem['slides'].length;
+
+			}
+
+			method.reIndex = function() {
+
+				elem['slides'] = self.find('.zRS--slide');				
 
 			}
 
@@ -212,15 +220,77 @@
 
 				}
 
-				method.forward = function() {
+				method.forward = function(difference) {
 
-					console.log('forward');
+					difference = 1;
+
+					elem['slides'].eq(difference).css({
+
+						'z-index' : '2'
+
+					}).fadeIn(options.speed, function() {
+					
+						elem['slides'].eq(difference).css({
+
+							'position' : 'relative'
+
+						});
+						
+						for(var i = 0; i < difference; i++) {
+
+							elem['slides'].eq(0).css({
+
+								'z-index' : '1',
+								'position' : 'absolute'
+
+							}).appendTo(elem['inner']).hide();
+							
+							objs['slides'].reIndex();
+
+						}
+
+					});
 
 				}
 
-				method.back = function() {
+				method.back = function(difference) {
 
-					console.log('backwards');
+					difference = -1;
+
+					for(var i = 0; i > difference; i--) {
+
+						elem['slides'].eq(objs['slides'].count() - 1).prependTo(elem['inner']);
+						objs['slides'].reIndex();
+
+					}
+
+					elem['slides'].css({
+
+						'z-index' : '0'
+
+					});
+
+					elem['slides'].eq(0).css({
+
+						'z-index' : '1',
+						'position' : 'absolute'
+
+					}).fadeIn(options.speed, function(){
+
+						elem['slides'].eq(0).css({
+
+							'position' : 'relative'
+
+						});
+
+						elem['slides'].not(':first-child').css({
+
+							'z-index' : '0',
+							'position' : 'absolute'
+
+						}).hide();
+
+					});
 
 				}
 
@@ -247,7 +317,7 @@
 
 			method.play = function(direction) {
 
-				ins.timer = setInterval(objs['transition'][options.transition], options.speed, direction);
+				ins.timer = setInterval(objs['transition'][options.transition], options.delay, direction);
 
 			}
 
@@ -257,7 +327,7 @@
 
 			}
 
-			method.play('forward');
+			method.play(options.direction);
 
 		}
 

@@ -73,7 +73,7 @@ header {
       top: 0;
       right: 0;
       text-align: right;
-      padding: 2px 9px 0 0; }
+      padding: 7px 9px 0 0; }
       .slider--nav.next:before {
         content: '';
         position: absolute;
@@ -86,7 +86,7 @@ header {
       bottom: 0;
       left: 0;
       text-align: left;
-      padding: 21px 0 0 9px; }
+      padding: 27px 0 0 9px; }
       .slider--nav.prev:before {
         content: '';
         position: absolute;
