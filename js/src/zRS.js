@@ -44,7 +44,12 @@
 
 				} else {
 
-					if(console) console.warn('['+ name +' '+ version +'] - '+ settings +' is not a public method');
+					if(console) {
+					
+						console.warn('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
+						console.table(ins['public'], ['Method']);
+
+					}
 
 				}
 
@@ -62,9 +67,10 @@
 			ins.defaults = {
 
 				transition : 'fade',
-				direction : 'back',
-				speed : 1000,
-				delay: 3000,
+				direction : 'forward',
+				speed : 1500,
+				delay: 6000,
+				slideBy: 1
 
 			};
 		
@@ -113,8 +119,22 @@
 
 			play : function(direction) {
 
+				direction = (!direction ? options.direction : direction);
+
 				objs['controls'].pause();
 				objs['controls'].play(direction);
+
+			},
+
+			next : function() {
+
+				objs['transition'][options.transition]('forward');
+
+			},
+
+			prev: function() {
+
+				objs['transition'][options.transition]('back');
 
 			}
 
@@ -222,7 +242,7 @@
 
 				method.forward = function(difference) {
 
-					difference = 1;
+					difference = (!difference ? options.slideBy : difference);
 
 					elem['slides'].eq(difference).css({
 
@@ -255,7 +275,7 @@
 
 				method.back = function(difference) {
 
-					difference = -1;
+					difference = (!difference ? -Math.abs(options.slideBy) : difference);
 
 					for(var i = 0; i > difference; i--) {
 
@@ -293,6 +313,8 @@
 					});
 
 				}
+
+				if(elem['slides'].is(':animated')) return;
 
 				method[action]();
 
