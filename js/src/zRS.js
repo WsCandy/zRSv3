@@ -47,7 +47,7 @@
 					if(console) {
 					
 						console.warn('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
-						console.table(ins['public'], ['Method']);
+						console.table(ins['public']);
 
 					}
 
@@ -339,6 +339,8 @@
 
 			method.play = function(direction) {
 
+				direction = (!direction ? options.direction : direction);
+
 				ins.timer = setInterval(objs['transition'][options.transition], options.delay, direction);
 
 			}
@@ -349,7 +351,7 @@
 
 			}
 
-			method.play(options.direction);
+			method.play();
 
 		}
 
