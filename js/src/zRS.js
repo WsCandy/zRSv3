@@ -70,7 +70,8 @@
 				direction : 'forward',
 				speed : 1500,
 				delay: 6000,
-				slideBy: 1
+				slideBy: 1,
+				pager: true
 
 			};
 		
@@ -94,10 +95,12 @@
 
 			defineModules: function() {
 
+				objs['misc'] = new misc();
 				objs['inner'] = new innerSlider();
 				objs['slides'] = new slides();
 				objs['transition'] = new transition();
 				objs['controls'] = new controls();
+				objs['pager'] = new pager();
 
 			}
 
@@ -135,6 +138,18 @@
 			prev: function() {
 
 				objs['transition'][options.transition]('back');
+
+			}
+
+		}
+
+		var misc = function() {
+
+			var method = this;
+
+			method.report = function(type, message) {
+
+				if(console)	console[type]('['+ name +' '+ version +'] - ' + message);
 
 			}
 
@@ -314,9 +329,7 @@
 
 				}
 
-				if(elem['slides'].is(':animated')) return;
-
-				method[action]();
+				if(!elem['slides'].is(':animated')) method[action]();
 
 			}
 
@@ -352,6 +365,26 @@
 			}
 
 			method.play();
+
+		}
+
+		var pager = function() {
+
+			var method = this;
+
+			method.setUp = function() {
+
+				if(!options.pager) return;
+
+				if(typeof options.pager != 'object') {
+
+					objs['misc'].report('warn', 'Please pass an object as the pager option!');
+
+					return;
+
+				}
+
+			}
 
 		}
 
