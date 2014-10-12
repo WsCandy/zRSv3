@@ -71,7 +71,7 @@
 				speed : 1500,
 				delay: 6000,
 				slideBy: 1,
-				pager: true
+				pager: $('.pager')
 
 			};
 		
@@ -374,15 +374,37 @@
 
 			method.setUp = function() {
 
-				if(!options.pager) return;
+				if(!method.checks()) return;
+
+				method.populate();
+
+			}
+
+			method.checks = function() {
+
+				if(!options.pager) return false;
 
 				if(typeof options.pager != 'object') {
 
-					objs['misc'].report('warn', 'Please pass an object as the pager option!');
-
-					return;
+					objs['misc'].report('warn', 'Please pass an jQuery selector as the pager option!');
+					return false;
 
 				}
+
+				if(options.pager.size() <= 0) {
+
+					objs['misc'].report('error', 'Cannot find pager container, please double check your selector!');
+					return false;
+
+				}
+
+				return true;
+
+			}
+
+			method.populate = function() {
+
+				console.log('Do the pager stuff');
 
 			}
 
