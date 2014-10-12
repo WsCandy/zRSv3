@@ -404,7 +404,16 @@
 
 			method.populate = function() {
 
-				console.log('Do the pager stuff');
+				for(var i = 0; i < objs['slides'].count(); i++) {
+
+					$('<a />', {
+
+						'href' : 'javascript:void(0);',
+						'data-target' : i
+
+					}).appendTo(options.pager);
+
+				}
 
 			}
 
