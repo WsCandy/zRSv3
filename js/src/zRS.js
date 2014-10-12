@@ -46,7 +46,7 @@
 
 					if(console) {
 					
-						console.warn('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
+						console.error('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
 						console.table(ins['public']);
 
 					}
