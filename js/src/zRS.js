@@ -47,7 +47,7 @@
 					if(console) {
 					
 						console.error('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
-						console.table(ins['public']);
+						return ins['public'];
 
 					}
 
@@ -87,7 +87,17 @@
 
 					if(!objs[obj].setUp) continue;
 
-					objs[obj].setUp();
+					try {
+
+						objs[obj].setUp();
+						
+					} catch(error) {
+
+						objs['misc'].report('group', error['message'] + ', tracer below...');
+						console.info(error['stack'].split('\n')[1]);
+						console.groupEnd();
+
+					}
 
 				}
 
