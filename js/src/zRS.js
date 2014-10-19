@@ -1,11 +1,19 @@
 ;(function() {
-	
+
 	'use strict';
 
 	var version = '0.1',
-		name = 'zRS';
+		name = 'zRS',
+		customObjs = {};
 
 	$.fn.zRS = function(settings, params) {
+		
+		if(!this[0] && settings == 'extend') {
+
+			customObjs[params.name] = params.extend;
+			return;
+
+		}
 		
 		var results = [];
 
@@ -20,6 +28,12 @@
 					console.error('['+ name +' '+ version +'] - not running, try firing methods after initialisation'); 
 					continue;
 
+				}
+
+				for(var customObj in customObjs) {
+
+					zRS_core.prototype[customObj] = customObjs[customObj];
+					
 				}
 
 				var ins = new zRS_core(self, settings);
@@ -111,6 +125,20 @@
 				objs['transition'] = new transition();
 				objs['controls'] = new controls();
 				objs['pager'] = new pager();
+
+				for(var customObj in customObjs) {
+
+					objs[customObj] = new customObjs[customObj]({
+
+						self: self,
+						ins: ins,
+						objs: objs,
+						elem: elem,
+						options: options
+
+					});
+
+				}				
 
 			}
 
@@ -343,17 +371,6 @@
 
 			}
 
-			transition.slide = function() {
-
-				var method = this;
-
-				method.setUp = function() {
-
-
-				}
-
-			}
-
 		}
 
 		var controls = function() {
@@ -434,9 +451,3 @@
 	}
 
 })();
-
-$(document).ready(function(){
-
-	$('.slider').zRS();
-
-});
