@@ -1,13 +1,31 @@
 $.fn.zRS('extend', {
 
-	name : 'test',
-	extend : function(data) {
+	name : 'transition',
+	handle : 'slide',
 
-		var method = this;
+	extend : function(core) {
 
-		method.setUp = function() {
-				
-			data.objs['misc'].report('warn', 'Extended method fired!');
+		var transition = this;
+
+		transition.setUp = function() {
+
+			console.warn('test');
+
+		}
+
+		transition.forward = function() {
+
+			if(core.elem['slides'].is(':animated')) return;
+
+			console.warn('forward');
+
+		}
+
+		transition.back = function() {
+
+			if(core.elem['slides'].is(':animated')) return;
+
+			console.warn('back');
 
 		}
 
