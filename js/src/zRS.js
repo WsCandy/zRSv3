@@ -10,7 +10,13 @@
 		
 		if(!this[0] && settings == 'extend') {
 
-			customObjs[params.name] = params.extend;
+			customObjs[params.name] = {
+
+				core: params.extend,
+				handle: params.handle
+
+			};
+
 			return;
 
 		}
@@ -30,13 +36,17 @@
 
 				}
 
+
+				var ins = new zRS_core(self, settings);
+				
 				for(var customObj in customObjs) {
 
-					zRS_core.prototype[customObj] = customObjs[customObj];
+					if(ins[customObj]) continue;
+					ins[customObj] = customObjs[customObj].core;
 					
 				}
 
-				var ins = new zRS_core(self, settings);
+				ins.init();
 
 				self.data('ins', ins);
 
@@ -118,17 +128,15 @@
 			},
 
 			defineModules: function() {
-
+				
 				objs['misc'] = new misc();
 				objs['inner'] = new innerSlider();
 				objs['slides'] = new slides();
-				objs['transition'] = new transition();
-				objs['controls'] = new controls();
-				objs['pager'] = new pager();
+				objs['transition'] = new ins.transition();
 
 				for(var customObj in customObjs) {
 
-					objs[customObj] = new customObjs[customObj]({
+					!objs[customObj] ? objs[customObj] : objs[customObj][customObjs[customObj].handle] = new customObjs[customObj].core({
 
 						self: self,
 						ins: ins,
@@ -138,7 +146,10 @@
 
 					});
 
-				}				
+				}
+				
+				objs['controls'] = new controls();
+				objs['pager'] = new pager();
 
 			}
 
@@ -169,13 +180,13 @@
 
 			next : function() {
 
-				objs['transition'][options.transition]('forward');
+				objs['transition'][options.transition]['forward']();
 
 			},
 
 			prev: function() {
 
-				objs['transition'][options.transition]('back');
+				objs['transition'][options.transition]['back']();
 
 			}
 
@@ -240,17 +251,17 @@
 
 		}
 
-		var transition = function() {
+		ins.transition = function() {
 
 			var transition = this;
 
 			transition.setUp = function() {
 
-				objs['transition'][options.transition]('setUp');
+				objs['transition'][options.transition].setUp();
 
 			}
 
-			transition.fade = function(action) {
+			transition.fade = new function() {
 
 				var method = this;
 
@@ -295,6 +306,8 @@
 
 				method.forward = function(difference) {
 
+					if(elem['slides'].is(':animated')) return;
+
 					difference = (!difference ? options.slideBy : difference);
 
 					elem['slides'].eq(difference).css({
@@ -327,6 +340,8 @@
 				}
 
 				method.back = function(difference) {
+
+					if(elem['slides'].is(':animated')) return;
 
 					difference = (!difference ? -Math.abs(options.slideBy) : difference);
 
@@ -367,8 +382,6 @@
 
 				}
 
-				if(!elem['slides'].is(':animated')) method[action]();
-
 			}
 
 		}
@@ -381,7 +394,7 @@
 
 				direction = (!direction ? options.direction : direction);
 
-				ins.timer = setInterval(objs['transition'][options.transition], options.delay, direction);
+				ins.timer = setInterval(objs['transition'][options.transition][direction], options.delay);
 
 			}
 
@@ -446,7 +459,11 @@
 
 		}
 
-		setUp.init();
+		ins.init = function() {
+
+			setUp.init();
+
+		}
 
 	}
 
