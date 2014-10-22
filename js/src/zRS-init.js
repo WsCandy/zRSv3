@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
-	$('.slider').zRS();
+	$('.slider').zRS({
+
+		'transition' : 'slide'
+
+	});
 
 });
