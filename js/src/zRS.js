@@ -36,7 +36,6 @@
 
 				}
 
-
 				var ins = new zRS_core(self, settings);
 				
 				for(var customObj in customObjs) {
@@ -133,6 +132,7 @@
 				objs['inner'] = new innerSlider();
 				objs['slides'] = new slides();
 				objs['transition'] = new ins.transition();
+				objs['pager'] = new pager();
 
 				for(var customObj in customObjs) {
 
@@ -149,7 +149,6 @@
 				}
 				
 				objs['controls'] = new controls();
-				objs['pager'] = new pager();
 
 			}
 
