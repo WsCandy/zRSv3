@@ -288,6 +288,26 @@
 
 			}
 
+			transition.goTo = function(target) {
+
+				var difference = target - objs['slides'].currentSlide;
+
+				if(target < objs['slides'].currentSlide) {
+
+					objs['transition'][options.transition]['back'](difference);
+
+				} else if(target > objs['slides'].currentSlide) {
+
+					objs['transition'][options.transition]['forward'](difference);
+
+				} else {
+
+					objs['misc'].report('info', 'You\'re on that slide!');
+
+				}
+
+			}
+
 			transition.fade = new function() {
 
 				var method = this;
@@ -454,6 +474,7 @@
 				pagers = elem['pager'].children();
 
 				method.update();
+				method.bindings();
 
 			}
 
@@ -498,6 +519,20 @@
 
 				pagers.removeClass('active');
 				pagers.eq(objs['slides'].currentSlide).addClass('active');
+
+			}
+
+			method.bindings = function() {
+
+				pagers.on('click', objs['pager'].goTo);
+
+			}
+
+			method.goTo = function() {
+
+				var target = $(this).data('target');
+
+				objs['transition'].goTo(target);
 
 			}
 
