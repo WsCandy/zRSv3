@@ -272,11 +272,11 @@
 
 				if((objs['slides'].currentSlide + difference) > objs['slides'].count() -1) {
 
-					objs['slides'].currentSlide = 0;
+					objs['slides'].currentSlide = (objs['slides'].currentSlide + difference) - objs['slides'].count();
 
 				} else if(objs['slides'].currentSlide + difference < 0) {
 
-					objs['slides'].currentSlide = objs['slides'].count() -1;
+					objs['slides'].currentSlide = objs['slides'].count() + (objs['slides'].currentSlide + difference);
 
 				} else {
 
