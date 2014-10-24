@@ -187,6 +187,12 @@
 
 				objs['transition'][options.transition]['back']();
 
+			},
+
+			currentSlide: function() {
+
+				return objs['slides'].currentSlide;
+
 			}
 
 		}
@@ -248,6 +254,8 @@
 
 			}
 
+			this.currentSlide = 0;
+
 		}
 
 		ins.transition = function() {
@@ -257,6 +265,26 @@
 			transition.setUp = function() {
 
 				objs['transition'][options.transition].setUp();
+
+			}
+
+			transition.update = function(difference) {
+
+				if((objs['slides'].currentSlide + difference) > objs['slides'].count() -1) {
+
+					objs['slides'].currentSlide = 0;
+
+				} else if(objs['slides'].currentSlide + difference < 0) {
+
+					objs['slides'].currentSlide = objs['slides'].count() -1;
+
+				} else {
+
+					objs['slides'].currentSlide += difference;
+					
+				}
+
+				options.pager ? objs['pager'].update() : null;
 
 			}
 
@@ -336,6 +364,8 @@
 
 					});
 
+					objs['transition'].update(difference);
+
 				}
 
 				method.back = function(difference) {
@@ -379,6 +409,8 @@
 
 					});
 
+					objs['transition'].update(difference);
+
 				}
 
 			}
@@ -409,13 +441,19 @@
 
 		var pager = function() {
 
-			var method = this;
+			var method = this,
+				pagers;
 
 			method.setUp = function() {
 
 				if(!method.checks()) return;
 
 				method.populate();
+
+				elem['pager'] = options.pager;
+				pagers = elem['pager'].children();
+
+				method.update();
 
 			}
 
@@ -453,6 +491,13 @@
 					}).appendTo(options.pager);
 
 				}
+
+			}
+
+			method.update = function() {
+
+				pagers.removeClass('active');
+				pagers.eq(objs['slides'].currentSlide).addClass('active');
 
 			}
 
