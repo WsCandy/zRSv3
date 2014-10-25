@@ -127,12 +127,8 @@
 			},
 
 			defineModules: function() {
-				
-				objs['misc'] = new misc();
-				objs['inner'] = new innerSlider();
-				objs['slides'] = new slides();
-				objs['transition'] = new ins.transition();
-				objs['pager'] = new pager();
+
+				var modules = ['misc', 'inner', 'slides', 'transition', 'pager', 'controls'];
 
 				for(var customObj in customObjs) {
 
@@ -147,8 +143,12 @@
 					});
 
 				}
-				
-				objs['controls'] = new controls();
+
+				for(var i = 0; i < modules.length; i++) {
+
+					objs[modules[i]] ? objs[modules[i]] : objs[modules[i]] = new ins[modules[i]]();
+
+				}
 
 			}
 
@@ -197,7 +197,7 @@
 
 		}
 
-		var misc = function() {
+		ins.misc = function() {
 
 			var method = this;
 
@@ -209,7 +209,7 @@
 
 		}
 
-		var innerSlider = function() {
+		ins.inner = function() {
 
 			var method = this;
 
@@ -229,7 +229,7 @@
 
 		}
 
-		var slides = function() {
+		ins.slides = function() {
 
 			var method = this;
 
@@ -437,7 +437,7 @@
 
 		}
 
-		var controls = function() {
+		ins.controls = function() {
 
 			var method = this;
 
@@ -459,7 +459,7 @@
 
 		}
 
-		var pager = function() {
+		ins.pager = function() {
 
 			var method = this,
 				pagers;
