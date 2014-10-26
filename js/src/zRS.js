@@ -134,7 +134,7 @@
 
 				for(var i = 0; i < modules.length; i++) {
 
-					objs[modules[i]] ? objs[modules[i]] : objs[modules[i]] = new ins[modules[i]]();
+					objs[modules[i]] = new ins[modules[i]]();
 
 				}
 
