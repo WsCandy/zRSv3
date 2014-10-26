@@ -124,15 +124,23 @@
 
 				}
 
+				objs['controls'].play();
+
 			},
 
 			defineModules: function() {
 
 				var modules = ['misc', 'inner', 'slides', 'transition', 'pager', 'controls'];
 
+				for(var i = 0; i < modules.length; i++) {
+
+					objs[modules[i]] ? objs[modules[i]] : objs[modules[i]] = new ins[modules[i]]();
+
+				}
+
 				for(var customObj in customObjs) {
 
-					!objs[customObj] ? objs[customObj] : objs[customObj][customObjs[customObj].handle] = new customObjs[customObj].core({
+					var data = {
 
 						self: self,
 						ins: ins,
@@ -140,13 +148,9 @@
 						elem: elem,
 						options: options
 
-					});
+					}
 
-				}
-
-				for(var i = 0; i < modules.length; i++) {
-
-					objs[modules[i]] ? objs[modules[i]] : objs[modules[i]] = new ins[modules[i]]();
+					!objs[customObj] ? objs[customObj] = new customObjs[customObj].core(data) : objs[customObj][customObjs[customObj].handle] = new customObjs[customObj].core(data);
 
 				}
 
@@ -454,8 +458,6 @@
 				clearInterval(ins.timer);
 
 			}
-
-			method.play();
 
 		}
 
