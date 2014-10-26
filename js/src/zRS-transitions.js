@@ -32,3 +32,20 @@ $.fn.zRS('extend', {
 	}
 
 });
+
+$.fn.zRS('extend', {
+
+	name : 'alert',
+	extend : function(core) {
+
+		var method = this;
+
+		method.setUp = function() {
+
+			alert('Fired');
+
+		}
+
+	}
+
+});
