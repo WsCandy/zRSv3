@@ -304,10 +304,6 @@
 
 					objs['transition'][options.transition]['forward'](difference);
 
-				} else {
-
-					objs['misc'].report('info', 'You\'re on that slide!');
-
 				}
 
 			}
