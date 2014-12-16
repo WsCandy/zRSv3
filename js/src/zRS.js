@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '0.1',
+	var version = '3.0a',
 		name = 'zRS',
 		customObjs = {};
 
@@ -57,11 +57,11 @@
 
 					if(this.length > 1) {
 
-						results.push(ins['public'][settings](params));
+						results.push(ins['publicF'][settings](params));
 
 					} else {
 
-						return ins['public'][settings](params);
+						return ins['publicF'][settings](params);
 						
 					}
 
@@ -94,7 +94,8 @@
 				speed : 1500,
 				delay: 6000,
 				slideBy: 1,
-				pager: $('.pager')
+				pager: $('.pager'),
+				visibleSlides: 1
 
 			};
 		
@@ -158,7 +159,7 @@
 
 		}
 
-		ins.public = {
+		ins.publicF = {
 
 			slideCount : function() {
 
@@ -220,7 +221,6 @@
 			method.setUp = function() {
 
 				elem['inner'] = self.find('.inner-slider');
-
 				elem['inner'].css({
 
 					'posiition' : 'relative',
@@ -288,6 +288,7 @@
 					
 				}
 
+				objs['slides'].reIndex();
 				options.pager ? objs['pager'].update() : null;
 
 			}
