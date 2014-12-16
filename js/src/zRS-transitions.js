@@ -9,7 +9,7 @@ $.fn.zRS('extend', {
 
 		transition.setUp = function() {
 
-			core['elem']['inner'].children().wrapAll('<div class="carousel" />');
+			core['elem']['slides'].wrapAll('<div class="carousel" />');
 
 			core['elem']['carousel'] = core['self'].find('.carousel');
 			core['elem']['carousel'].css({
