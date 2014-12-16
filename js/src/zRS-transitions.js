@@ -77,7 +77,7 @@ $.fn.zRS('extend', {
 			
 			core['elem']['carousel'].css({
 
-				'left' : ((100 * difference) / core['options'].visibleSlides) * core['options'].slideBy + '%'
+				'left' : (100 * difference) / core['options'].visibleSlides + '%'
 
 			});
 
