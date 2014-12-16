@@ -198,6 +198,12 @@
 
 				return objs['slides'].currentSlide;
 
+			},
+
+			reIndex: function() {
+
+				return objs['slides'].reIndex();
+
 			}
 
 		}

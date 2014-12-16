@@ -71,7 +71,8 @@ $.fn.zRS('extend', {
 
 			for(var i = 0; i > difference; i--) {
 
-				core['elem']['slides'].eq(i).prependTo(core['elem']['carousel']);
+				core.ins['publicF'].reIndex();
+				core['elem']['slides'].eq(core.ins['publicF'].slideCount() -1).prependTo(core['elem']['carousel']);
 
 			}
 			
