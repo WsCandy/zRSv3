@@ -289,6 +289,8 @@
 				}
 
 				objs['slides'].reIndex();
+
+				objs['controls'].play();
 				options.pager ? objs['pager'].update() : null;
 
 			}
@@ -446,13 +448,14 @@
 
 				direction = (!direction ? options.direction : direction);
 
-				ins.timer = setInterval(objs['transition'][options.transition][direction], options.delay);
+				method.pause();
+				ins.timer = setTimeout(objs['transition'][options.transition][direction], options.delay);
 
 			}
 
 			method.pause = function() {
 
-				clearInterval(ins.timer);
+				clearTimeout(ins.timer);
 
 			}
 
@@ -528,6 +531,8 @@
 			}
 
 			method.goTo = function() {
+
+				if(elem['slides'].is(':animated') || elem['carousel'].is(':animated')) return;
 
 				var target = $(this).data('target');
 

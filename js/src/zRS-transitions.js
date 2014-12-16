@@ -51,7 +51,7 @@ $.fn.zRS('extend', {
 
 			}
 
-			if(core.elem['slides'].is(':animated')) return;
+			if(core['elem']['carousel'].is(':animated')) return;
 
 			core['elem']['carousel'].animate({
 
@@ -67,7 +67,7 @@ $.fn.zRS('extend', {
 
 			difference = (!difference ? core['options'].slideBy : difference);
 			
-			if(core.elem['slides'].is(':animated')) return;
+			if(core['elem']['carousel'].is(':animated')) return;
 
 			for(var i = 0; i > difference; i--) {
 
