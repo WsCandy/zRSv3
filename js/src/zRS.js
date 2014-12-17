@@ -4,13 +4,17 @@
 
 	var version = '3.0a',
 		name = 'zRS',
-		customObjs = {};
+		extendableObjs = {
+
+			transition: {}
+
+		};
 
 	$.fn.zRS = function(settings, params) {
-		
+
 		if(!this[0] && settings == 'extend') {
 
-			customObjs[params.name] = {
+			!extendableObjs[params.name] ? extendableObjs[params.name] : extendableObjs[params.name][params.handle] = {
 
 				core: params.extend,
 				handle: params.handle
@@ -38,10 +42,10 @@
 
 				var ins = new zRS_core(self, settings);
 				
-				for(var customObj in customObjs) {
+				for(var customObj in extendableObjs) {
 
 					if(ins[customObj]) continue;
-					ins[customObj] = customObjs[customObj].core;
+					ins[customObj] = extendableObjs[customObj].core;
 					
 				}
 
@@ -139,7 +143,7 @@
 
 				}
 
-				for(var customObj in customObjs) {
+				for(var customObj in extendableObjs) {
 
 					var data = {
 
@@ -151,7 +155,19 @@
 
 					}
 
-					!objs[customObj] ? objs[customObj] = new customObjs[customObj].core(data) : objs[customObj][customObjs[customObj].handle] = new customObjs[customObj].core(data);
+					if(!objs[customObj]) {
+
+						objs[customObj] = new extendableObjs[customObj].core(data);
+
+					} else {
+
+						for(var extend in extendableObjs[customObj]) {
+
+							objs[customObj][extendableObjs[customObj][extend].handle] = new extendableObjs[customObj][extend].core(data);
+
+						}
+
+					}
 
 				}
 

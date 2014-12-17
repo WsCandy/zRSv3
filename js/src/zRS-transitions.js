@@ -95,3 +95,34 @@ $.fn.zRS('extend', {
 	}
 
 });
+
+$.fn.zRS('extend', {
+
+	name : 'transition',
+	handle : 'sam',
+
+	extend : function(core) {
+
+		var transition = this;
+
+		transition.setUp = function() {
+
+			console.log('Sam');
+
+		}
+
+		transition.forward = function(difference) {
+
+			console.log('Sam forward');
+
+		}
+
+		transition.back = function(difference) {
+
+			console.log('Sam back');
+
+		}
+
+	}
+
+});

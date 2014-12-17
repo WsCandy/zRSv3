@@ -4,8 +4,7 @@ $(document).ready(function(){
 
 		transition: 'slide',
 		visibleSlides: 2,
-		slideBy: 2,
-		direction: 'back'
+		slideBy: 1
 
 	});
 
