@@ -65,7 +65,7 @@ $.fn.zRS('extend', {
 
 		transition.back = function(difference) {
 
-			difference = (!difference ? core['options'].slideBy : difference);
+			difference = (!difference ? -Math.abs(core['options'].slideBy) : difference);
 			
 			if(core['elem']['carousel'].is(':animated')) return;
 
