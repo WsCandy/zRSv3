@@ -113,9 +113,15 @@ header {
 	width: 100%;
 	position: relative;
 
-	img {
+	> img {
 
 		display: none;
+
+	}
+
+	img {
+
+		width: 100%;
 
 	}
 
