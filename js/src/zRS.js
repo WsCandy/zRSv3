@@ -6,7 +6,9 @@
 		name = 'zRS',
 		extendableObjs = {
 
-			transition: {}
+			transition: {},
+			publicF: {},
+			pager: {}
 
 		};
 
@@ -145,6 +147,7 @@
 
 				}
 
+
 				for(var customObj in extendableObjs) {
 
 					var data = {
@@ -157,7 +160,16 @@
 
 					}
 
-					if(!objs[customObj]) {
+
+					if(customObj === 'publicF') {
+
+						for(var extend in extendableObjs[customObj]) {
+
+							ins.publicF[extendableObjs[customObj][extend].handle] = extendableObjs[customObj][extend].core;							
+
+						}
+
+					} else if(!objs[customObj]) {
 
 						objs[customObj] = new extendableObjs[customObj].core(data);
 
@@ -165,7 +177,7 @@
 
 						for(var extend in extendableObjs[customObj]) {
 
-							objs[customObj][extendableObjs[customObj][extend].handle] = new extendableObjs[customObj][extend].core(data);
+							objs[customObj][extendableObjs[customObj][extend].handle] = (typeof objs[customObj][extendableObjs[customObj][extend].handle] == 'object' ? new extendableObjs[customObj][extend].core(data) : extendableObjs[customObj][extend].core);
 
 						}
 

@@ -114,3 +114,16 @@ $.fn.zRS('extend', {
 	}
 
 });
+
+$.fn.zRS('extend', {
+
+	name : 'publicF',
+	handle : 'sayHi',
+
+	extend : function(core) {
+
+		alert('Hello');
+
+	}
+
+});
