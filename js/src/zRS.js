@@ -191,12 +191,10 @@
 
 			},
 
-			play : function(direction) {
-
-				direction = (!direction ? options.direction : direction);
+			play : function() {
 
 				objs['controls'].pause();
-				objs['controls'].play(direction);
+				objs['controls'].play();
 
 			},
 
@@ -347,11 +345,7 @@
 				objs['transition'][options.transition][direction](difference);
 				objs['transition'].update(difference);
 
-				if(typeof options['pre_trans_callback'] === 'function') {
-
-					options['pre_trans_callback']();
-
-				}
+				if(typeof options['pre_trans_callback'] === 'function') options['pre_trans_callback']();
 
 				setTimeout(objs['transition'].after, options.speed);
 
@@ -359,11 +353,7 @@
 
 			transition.after = function() {
 
-				if(typeof options['trans_callback'] === 'function') {
-
-					options['trans_callback']();
-
-				}
+				if(typeof options['trans_callback'] === 'function')	options['trans_callback']();
 
 			}
 
@@ -488,16 +478,10 @@
 
 			var method = this;
 
-			method.play = function(direction) {
-
-				direction = (!direction ? options.direction : direction);
+			method.play = function() {
 
 				method.pause();
-				ins.timer = setTimeout(function() {
-
-					objs['transition'].before(options.transition, direction);
-
-				}, options.delay);
+				ins.timer = setTimeout(objs['transition'].before, options.delay, options.transition);
 
 			}
 
