@@ -580,11 +580,7 @@
 
 			method.goTo = function() {
 
-				if(elem['slides'].is(':animated')) return;
-
-				var target = $(this).data('target');
-
-				objs['transition'].goTo(target);
+				objs['transition'].goTo($(this).data('target'));
 
 			}
 
