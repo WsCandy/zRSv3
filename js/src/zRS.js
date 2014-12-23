@@ -99,7 +99,9 @@
 				delay: 6000,
 				slideBy: 1,
 				pager: $('.pager'),
-				visibleSlides: 1
+				visibleSlides: 1,
+				trans_callback: null,
+				pre_trans_callback: null
 
 			};
 		
@@ -345,13 +347,23 @@
 				objs['transition'][options.transition][direction](difference);
 				objs['transition'].update(difference);
 
+				if(typeof options['pre_trans_callback'] === 'function') {
+
+					options['pre_trans_callback']();
+
+				}
+
 				setTimeout(objs['transition'].after, options.speed);
 
 			}
 
 			transition.after = function() {
 
-				
+				if(typeof options['trans_callback'] === 'function') {
+
+					options['trans_callback']();
+
+				}
 
 			}
 
