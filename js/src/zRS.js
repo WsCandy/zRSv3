@@ -135,7 +135,7 @@
 
 			defineModules: function() {
 
-				var modules = ['misc', 'inner', 'slides', 'transition', 'pager', 'controls', 'procedural'];
+				var modules = ['misc', 'inner', 'slides', 'transition', 'pager', 'controls'];
 
 				for(var i = 0; i < modules.length; i++) {
 
@@ -250,69 +250,6 @@
 					'overflow' : 'hidden'
 
 				});
-
-			}
-
-		}
-
-		ins.procedural = function() {
-
-			var method = this;
-
-			method.setUp = function() {
-
-				for(var i = 0; i < elem['slides'].length; i++) {
-
-					if(i > options.visibleSlides - 1) continue;
-
-					method.loopThrough($(elem['slides'][i]), 'initial');
-
-				}
-
-			}
-
-			method.loopThrough = function(slide, initial, data) {
-
-				var img = slide.is('img') ? slide : slide.find('img');
-
-				for(var i = 0; i < img.length; i++) {
-				
-					var currentImg = $(img[i]);
-
-					currentImg.attr('src', currentImg.attr('zrs-src'));
-						
-					if(i != img.length -1 || initial) continue;
-
-					currentImg.load(method.loadedImg(currentImg, data));
-
-				}
-
-			}
-
-			method.loadedImg = function(img, data) {
-
-				objs['transition'][options.transition][data.direction](data.difference);
-
-			}
-
-			method.transition = function(direction, difference) {
-
-				var target = objs['slides'].determineTarget(objs['slides'].currentSlide, difference, direction);
-				
-				for(var i = objs['slides'].currentSlide; i <= target; i++) {
-
-					console.log('la')
-
-					if(i == 0) continue;
-
-					method.loopThrough($(elem['slides'][i]), null, {
-
-						difference: difference,
-						direction: direction
-
-					});
-
-				}
 
 			}
 
