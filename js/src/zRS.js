@@ -74,7 +74,7 @@
 					if(console) {
 					
 						console.error('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
-						return ins['public'];
+						return ins['publicF'];
 
 					}
 
@@ -297,9 +297,6 @@
 
 			method.transition = function(direction, difference) {
 
-				direction = (!direction ? options.direction : direction);
-				difference = (!difference ? (direction == 'back' ? -Math.abs(options.slideBy) : options.slideBy) : (direction == 'back' ? -Math.abs(difference) : difference));
-
 				var target = objs['slides'].determineTarget(objs['slides'].currentSlide, difference, direction);
 				
 				for(var i = objs['slides'].currentSlide; i <= target; i++) {
@@ -389,13 +386,35 @@
 
 				if(target < objs['slides'].currentSlide) {
 
-					objs['transition'][options.transition]['back'](difference);
+					objs['transition'].before(options.transition, 'back', difference);
 
 				} else if(target > objs['slides'].currentSlide) {
 
-					objs['transition'][options.transition]['forward'](difference);
+					objs['transition'].before(options.transition, 'forward', difference);
 
 				}
+
+			}
+
+			transition.before = function(transition, direction, difference) {
+
+				if(self.find('*').is(':animated')) return;
+
+				transition = !transition ? options.transition : transition;
+				direction = !direction ? options.direction : direction;
+
+				difference = (!difference ? (direction == 'back' ? -Math.abs(options.slideBy) : options.slideBy) : (direction == 'back' ? -Math.abs(difference) : difference));
+
+				objs['transition'][options.transition][direction](difference);
+				objs['transition'].update(difference);
+
+				setTimeout(objs['transition'].after, options.speed);
+
+			}
+
+			transition.after = function() {
+
+				
 
 			}
 
@@ -444,10 +463,6 @@
 
 				method.forward = function(difference) {
 
-					if(elem['slides'].is(':animated')) return;
-
-					difference = (!difference ? options.slideBy : difference);
-
 					elem['slides'].eq(difference).css({
 
 						'z-index' : '2'
@@ -475,15 +490,9 @@
 
 					});
 
-					objs['transition'].update(difference);
-
 				}
 
 				method.back = function(difference) {
-
-					if(elem['slides'].is(':animated')) return;
-
-					difference = (!difference ? -Math.abs(options.slideBy) : difference);
 
 					for(var i = 0; i > difference; i--) {
 
@@ -520,8 +529,6 @@
 
 					});
 
-					objs['transition'].update(difference);
-
 				}
 
 			}
@@ -537,7 +544,11 @@
 				direction = (!direction ? options.direction : direction);
 
 				method.pause();
-				ins.timer = setTimeout(objs['transition'][options.transition][direction], options.delay);
+				ins.timer = setTimeout(function() {
+
+					objs['transition'].before(options.transition, direction);
+
+				}, options.delay);
 
 			}
 
