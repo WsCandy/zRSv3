@@ -147,7 +147,6 @@
 
 				}
 
-
 				for(var customObj in extendableObjs) {
 
 					var data = {
@@ -159,7 +158,6 @@
 						options: options
 
 					}
-
 
 					if(customObj === 'publicF') {
 
@@ -177,7 +175,7 @@
 
 						for(var extend in extendableObjs[customObj]) {
 
-							objs[customObj][extendableObjs[customObj][extend].handle] = (typeof objs[customObj][extendableObjs[customObj][extend].handle] == 'object' ? new extendableObjs[customObj][extend].core(data) : extendableObjs[customObj][extend].core);
+							objs[customObj][extendableObjs[customObj][extend].handle] = (typeof objs[customObj][extendableObjs[customObj][extend].handle] !== 'function' ? new extendableObjs[customObj][extend].core(data) : extendableObjs[customObj][extend].core);
 
 						}
 
