@@ -22,7 +22,7 @@ To do
 - Responsive Images
 - Slide Spacing
 - CSS Transitions
-- Callbacks, Load, Before Trans, After Trans
+- ~~Callbacks, Load, Before Trans, After Trans~~
 - Destroy Method/ Reinit
 - Touch
 - Backstretch (with slide)
