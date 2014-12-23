@@ -193,7 +193,6 @@
 
 			play : function() {
 
-				objs['controls'].pause();
 				objs['controls'].play();
 
 			},
