@@ -300,24 +300,103 @@
 			transition.setUp = function() {
 
 				objs['transition'][options.transition].setUp();
+				objs['transition'].procedural('initial');
+
+			}
+
+			transition.procedural = function(target, difference) {
+
+				difference = !difference ? options.slideBy : difference;
+				target = !target ? objs['transition'].target(difference) : target;
+
+				if(target == 'initial') {
+
+					for(var i = 0; i < options.visibleSlides; i++) {
+
+						transition.swapImg(elem['slides'].eq(i));
+
+					}
+
+					return;
+
+				}
+
+				for(var i = 0; (difference < 0 ? i > difference : i < difference); (difference < 0 ? i-- : i++)) {
+
+					if(difference < 0) {
+
+						transition.swapImg(elem['slides'].eq(Math.abs(i)));
+						continue;
+
+					} 
+
+					transition.swapImg(elem['slides'].eq((i + difference) - (options.visibleSlides === difference ? 0 : difference - options.visibleSlides)));
+
+				}
+				
+			}
+
+			transition.swapImg = function(slide) {
+
+				var images = slide.is('img') ? slide : slide.find('img');
+
+				for(var i = 0; i < images.length; i++) {
+
+					var image = $(images[i]);
+
+					image.attr('src', image.attr('zrs-src'));
+
+				}
+
+			}
+
+			transition.before = function(transition, direction, difference) {
+
+				if(self.find('*').is(':animated')) return;
+
+				transition = !transition ? options.transition : transition;
+				direction = !direction ? options.direction : direction;
+
+				difference = (!difference ? (direction == 'back' ? -Math.abs(options.slideBy) : options.slideBy) : (direction == 'back' ? -Math.abs(difference) : difference));
+
+				objs['transition'][options.transition][direction](difference);
+				
+				objs['transition'].procedural(null, difference);				
+				objs['transition'].update(difference);
+
+				if(typeof options['pre_trans_callback'] === 'function') options['pre_trans_callback']();
+
+				setTimeout(objs['transition'].after, options.speed);
+
+			}
+
+			transition.after = function() {
+
+				if(typeof options['trans_callback'] === 'function')	options['trans_callback']();
+
+			}
+
+			transition.target = function(difference) {
+
+				if((objs['slides'].currentSlide + difference) > objs['slides'].count() -1) {
+
+					return (objs['slides'].currentSlide + difference) - objs['slides'].count();
+
+				} else if(objs['slides'].currentSlide + difference < 0) {
+
+					return objs['slides'].count() + (objs['slides'].currentSlide + difference);
+
+				} else {
+
+					return objs['slides'].currentSlide + difference;
+					
+				}
 
 			}
 
 			transition.update = function(difference) {
 
-				if((objs['slides'].currentSlide + difference) > objs['slides'].count() -1) {
-
-					objs['slides'].currentSlide = (objs['slides'].currentSlide + difference) - objs['slides'].count();
-
-				} else if(objs['slides'].currentSlide + difference < 0) {
-
-					objs['slides'].currentSlide = objs['slides'].count() + (objs['slides'].currentSlide + difference);
-
-				} else {
-
-					objs['slides'].currentSlide += difference;
-					
-				}
+				objs['slides'].currentSlide = transition.target(difference);
 
 				objs['slides'].reIndex();
 
@@ -339,30 +418,6 @@
 					objs['transition'].before(options.transition, 'forward', difference);
 
 				}
-
-			}
-
-			transition.before = function(transition, direction, difference) {
-
-				if(self.find('*').is(':animated')) return;
-
-				transition = !transition ? options.transition : transition;
-				direction = !direction ? options.direction : direction;
-
-				difference = (!difference ? (direction == 'back' ? -Math.abs(options.slideBy) : options.slideBy) : (direction == 'back' ? -Math.abs(difference) : difference));
-
-				objs['transition'][options.transition][direction](difference);
-				objs['transition'].update(difference);
-
-				if(typeof options['pre_trans_callback'] === 'function') options['pre_trans_callback']();
-
-				setTimeout(objs['transition'].after, options.speed);
-
-			}
-
-			transition.after = function() {
-
-				if(typeof options['trans_callback'] === 'function')	options['trans_callback']();
 
 			}
 
