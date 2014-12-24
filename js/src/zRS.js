@@ -323,14 +323,7 @@
 
 				for(var i = 0; (difference < 0 ? i > difference : i < difference); (difference < 0 ? i-- : i++)) {
 
-					if(difference < 0) {
-
-						transition.swapImg(elem['slides'].eq(Math.abs(i)));
-						continue;
-
-					} 
-
-					transition.swapImg(elem['slides'].eq((i + difference) - (options.visibleSlides === difference ? 0 : difference - options.visibleSlides)));
+					transition.swapImg(elem['slides'].eq((difference < 0 ? Math.abs(i) : (i + difference) - (options.visibleSlides === difference ? 0 : difference - options.visibleSlides))));
 
 				}
 				

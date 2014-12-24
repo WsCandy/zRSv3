@@ -5,7 +5,7 @@ $(document).ready(function(){
 		transition: 'slide',
 		visibleSlides: 1,
 		slideBy: 1,
-		direction: 'forward'
+		direction: 'back'
 
 	});
 
