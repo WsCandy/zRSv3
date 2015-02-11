@@ -337,6 +337,8 @@
 
 					var image = $(images[i]);
 
+					if(!image.attr('zrs-src')) continue;
+
 					image.attr('src', image.attr('zrs-src'));
 					image.removeAttr('zrs-src');
 
