@@ -18,7 +18,7 @@ To do
 - Navigation Control
 - ~~Visible Slides~~
 - Visible Slides (Responsive)
-- Procedural Loading
+-  ~~Procedural Loading ~~ (Needs to trans on callback, main implementation working)
 - Responsive Images
 - Slide Spacing
 - CSS Transitions
