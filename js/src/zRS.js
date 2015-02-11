@@ -229,6 +229,12 @@
 
 				return objs['slides'].reIndex();
 
+			},
+
+			goTo: function(target) {
+
+				objs['transition'].goTo(target);
+
 			}
 
 		}
