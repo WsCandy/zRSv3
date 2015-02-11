@@ -2,10 +2,10 @@ $(document).ready(function(){
 
 	$('.slider').zRS({
 
-		transition: 'slide',
+		transition: 'fade',
 		visibleSlides: 1,
 		slideBy: 1,
-		direction: 'back'
+		direction: 'forward'
 
 	});
 
