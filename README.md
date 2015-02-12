@@ -20,7 +20,7 @@ To do
 - Visible Slides (Responsive)
 -  ~~Procedural Loading~~ (Needs to trans on callback, main implementation working)
 - Responsive Images
-- Slide Spacing
+- ~~Slide Spacing~~
 - CSS Transitions
 - ~~Callbacks, Load, Before Trans, After Trans~~
 - Destroy Method/ Reinit
