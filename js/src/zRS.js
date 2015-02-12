@@ -100,6 +100,7 @@
 				speed : 1500,
 				delay: 6000,
 				slideBy: 1,
+				slideSpacing: 0,
 				pager: $('.pager'),
 				visibleSlides: 1,
 				trans_callback: null,

@@ -5,7 +5,8 @@ $.fn.zRS('extend', {
 
 	extend : function(core) {
 
-		var transition = this;
+		var transition = this,
+			spacing = core['options'].visibleSlides === 1 ? '0' : core['options'].slideSpacing;
 
 		transition.setUp = function() {
 
@@ -23,7 +24,8 @@ $.fn.zRS('extend', {
 			core['elem']['slides'].css({
 
 				'float' : 'left',
-				'width' : ((100 / core.ins['publicF'].slideCount()) / core['options'].visibleSlides) + '%',
+				'width' : (((100 / core.ins['publicF'].slideCount()) / core['options'].visibleSlides) - spacing) + (spacing / core['options'].visibleSlides) + '%',
+				'margin-right' : spacing + '%',
 				'position' : 'relative',
 				'display' : 'block'
 
@@ -51,7 +53,7 @@ $.fn.zRS('extend', {
 
 			core['elem']['carousel'].animate({
 
-				'left' : '-' + ((100 * difference) / core['options'].visibleSlides) + '%'
+				'left' : '-' + ((100 * difference) + ((spacing * core.ins['publicF'].slideCount()) * difference)) / core['options'].visibleSlides + '%'
 
 			}, core['options'].speed, callback);			
 
@@ -68,7 +70,7 @@ $.fn.zRS('extend', {
 			
 			core['elem']['carousel'].css({
 
-				'left' : (100 * difference) / core['options'].visibleSlides + '%'
+				'left' : ((100 * difference) - ((spacing * core.ins['publicF'].slideCount()) * Math.abs(difference))) / core['options'].visibleSlides + '%'
 
 			});
 
@@ -118,11 +120,11 @@ $.fn.zRS('extend', {
 $.fn.zRS('extend', {
 
 	name : 'publicF',
-	handle : 'sayHi',
+	handle : 'saySam',
 
 	extend : function(core) {
 
-		alert('Hello');
+		alert('Sam');
 
 	}
 
